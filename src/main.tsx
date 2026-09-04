@@ -127,10 +127,12 @@ const dataRoute = createRoute({
 
 const router = createRouter({
 	routeTree: rootRoute.addChildren([dataRoute]),
-	// Every loader is stale immediately, so invalidate() really does re-run it...
+	// Mirrors the app this was found in. It is NOT what makes the invalidated match re-run below —
+	// router-core's reload predicate is `match.invalid || …`, so an explicit invalidate() re-runs the
+	// loader whatever the stale age says.
 	defaultStaleTime: 0,
-	// ...and it re-runs in the BACKGROUND: the mode under test, set explicitly rather than left to
-	// the default so the intent is unambiguous.
+	// The mode under test, set explicitly rather than left to the default so the intent is
+	// unambiguous.
 	defaultStaleReloadMode: 'background',
 });
 

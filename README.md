@@ -34,8 +34,9 @@ Both halves matter:
 The console also carries `Warning: Error in route match: /` from the router itself.
 
 `defaultStaleReloadMode: 'background'` is set explicitly rather than left to the default, so there
-is no question about which mode is under test. `defaultStaleTime: 0` makes the invalidated match
-actually re-run.
+is no question about which mode is under test. `defaultStaleTime: 0` mirrors the app this was found
+in; it is not what makes the invalidated match re-run — router-core's reload predicate is
+`match.invalid || …`, so an explicit `invalidate()` re-runs the loader whatever the stale age says.
 
 ## The wait is a settlement check, not a sleep
 
